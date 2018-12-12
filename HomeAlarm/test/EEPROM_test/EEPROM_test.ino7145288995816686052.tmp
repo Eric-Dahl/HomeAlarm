@@ -1,0 +1,83 @@
+#include <EEPROM.h>
+
+#include <avr/eeprom.h>
+#include <AlarmData.h>
+
+AlarmData alarmdata;
+String clidata[3] = {"Peter", "+46739665891", "0"};
+String clidata2[3] = {"Bonde", "+46725432411", "0"};
+byte rval[4] = {121, 132, 143, 154};
+String sampledata[4] = {"RFtransoo", "0", "1", "0"};
+User client(clidata, rval);
+User client2(clidata2, rval);
+RFTransmitter sample(sampledata);
+
+void setup() {
+  Serial.begin(9600);  
+
+  updateData();
+  printData();
+}
+
+void printData(){    //from eeprom
+  alarmdata.users.clear();
+  eeprom_read_block((void*)&alarmdata, (void*)0, sizeof(alarmdata));
+  while(!eeprom_is_ready()){} //w8 until eeprom is ready for next write
+
+  Serial.println("\n\n\nClients:");
+  Serial.println(alarmdata.listUsers());
+  delay(100);
+  Serial.println("\n\n\nTransmitters:");
+  Serial.println(alarmdata.listTransmitters());
+  Serial.println();
+  Serial.print(alarmdata.users.get(0)->name);
+  Serial.print(F(", "));
+  Serial.println(alarmdata.users.get(0)->phone);
+}
+
+void updateData(){
+  printEEPROM();
+
+  for (int i = 0; i < 1; i++){
+      alarmdata.users.add(client);
+      alarmdata.users.add(client2);
+      alarmdata.transmitters.add(sample);
+  }
+  Serial.println("\n\n\nClients:");
+  Serial.println(alarmdata.listUsers());
+  Serial.println("\n\n\nTransmitters:");
+  Serial.println(alarmdata.listTransmitters());
+  
+  
+  //EEPROM_writeAnything(0, alarmdata);
+  eeprom_update_block((const void*)&alarmdata, (void*)0, sizeof(alarmdata));
+
+  printEEPROM();
+/*
+  for(int i = 0; i < 3; i++){
+      eeprom_update_byte((uint8_t*)(1000 + i), i);
+  }
+  for(int i = 1000; i < 1003; i++){
+      Serial.println(eeprom_read_byte((uint8_t*)i));
+  }
+  */
+}
+
+void printEEPROM(){
+  for(int i = 0; i < 100; i++){
+      Serial.print((String)i + ":\t");
+      delay(20);
+      byte b = EEPROM.read(i);
+      delay(20);
+      Serial.print(b);
+      delay(20);
+      Serial.print("\t");
+      Serial.println((char)b);
+      delay(20);
+  }
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
