@@ -1,0 +1,54 @@
+#######################################
+# Syntax Coloring Map myLibraries_Alarm#######################################
+#
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+SMS	KEYWORD1
+Message	KEYWORD1
+GSMCommands	KEYWORD1
+
+User	KEYWORD1
+RFTransmitter	KEYWORD1
+AlarmData	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+init	KEYWORD2
+sendSMS	KEYWORD2
+recieveSMS	KEYWORD2
+deleteSMS	KEYWORD2
+Transfer_OK	KEYWORD2
+Transfer_CMD	KEYWORD2
+sendATcommand	KEYWORD2
+recieveATconfirm	KEYWORD2
+recieveATcommand	KEYWORD2
+
+getState	KEYWORD2
+setState	KEYWORD2
+setExtendedAccess	KEYWORD2
+isExtendedAccess	KEYWORD2
+getUserpos	KEYWORD2
+listUsers	KEYWORD2
+getTransmitterpos	KEYWORD2
+listTransmitters	KEYWORD2
+verifyPhone	KEYWORD2
+verifyRFID	KEYWORD2
+matchRFdata	KEYWORD2
+
+toString	KEYWORD2
+
+#######################################
+# Variables (KEYWORD3)
+#######################################
+
+users	KEYWORD3
+transmitters	KEYWORD3
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+ADMIN	LITERAL1
