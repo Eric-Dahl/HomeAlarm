@@ -63,7 +63,7 @@ namespace GSMControlUno {
 
 
 		String command;
-		Avec<String, 3> args;
+		Avec<String, 10> args;
 	private:
 		void clear();		//resets all variables in Message object
 		void assign(String newval);	//"Fills" the object with values from string (command syntax)
